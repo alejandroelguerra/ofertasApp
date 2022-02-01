@@ -2,6 +2,7 @@ package des.alumno.ofertasapp.controladores;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import javax.servlet.http.HttpSession;
@@ -31,12 +32,12 @@ public class OfertaController {
 	
 	@ResponseBody
 	@PostMapping(value = "/anadir")
-	public ResponseEntity<Oferta> guardarOferta(@RequestBody Oferta ofertica) {
+	public ResponseEntity<Oferta> guardarOferta(@RequestBody Oferta oferta) {
 		
 		ResponseEntity<Oferta> resp;
-		ofertica.setFecha(LocalDate.now());
+		oferta.setFecha(LocalDate.now());
 		//Oferta oferta = new Oferta(nombre, precio, fecha, prioridad, hipervinculo, descripcion);
-		Oferta o =ofertaServicio.guardar(ofertica);
+		Oferta o =ofertaServicio.guardar(oferta);
 		
 		resp = new ResponseEntity<Oferta>(o,HttpStatus.OK);
 		return resp;
@@ -66,7 +67,7 @@ public class OfertaController {
 			return resp;
 	}
 	
-	@GetMapping(value = "/buscar")
+	/*@GetMapping(value = "/buscar")
 	public String buscarPorPatronDeNombre(Model modelo, @RequestParam String patron) {
 
 		ArrayList<Oferta> ofertas = ofertaServicio.buscarPorPatronDeNombre(patron);
@@ -77,12 +78,11 @@ public class OfertaController {
 			return "index";
 		}
 
-	}
+	}*/
 	@GetMapping(value = "/filtrar")
-	public String buscarPorPatronPrioridad(Model modelo, @RequestParam String prioridad) {
-		ArrayList<Oferta> ofertas = ofertaServicio.buscarPorPatronDePrioridad(prioridad);
-			modelo.addAttribute("oferta", ofertas);
-			return "index";
+	public List<Oferta> buscarPorPatronPrioridad( @RequestParam String prioridad) {
+
+			return ofertaServicio.buscarPorPatronDePrioridad(prioridad);
 		
 			
 	}

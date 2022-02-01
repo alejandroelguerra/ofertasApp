@@ -1,3 +1,5 @@
+window.onload=obtenerOfertas;
+
 function obtenerOfertas() {
 	let resultados = document.getElementById("resultados");
 	resultados.replaceChildren();
@@ -39,17 +41,20 @@ function obtenerOfertas() {
 				var boton = document.createElement("button");
 				var clase = document.createAttribute("class");
 				var valor = document.createAttribute("type");
-				var click = document.createAttribute("onclick");
-				click.value = "infoFila(this)";
+				var name = document.createAttribute("name");
+				//boton.addEventListener("");
+				name.value = "mostrar_info";
 				clase.value = "btn btn-info";
 				valor.value = "button";
 				boton.setAttributeNode(clase);
 				boton.setAttributeNode(valor);
-				boton.setAttributeNode(click);
+				boton.setAttributeNode(name);
 				boton.textContent = "info";
+				//ADD event lisener
+				
 				cel4.appendChild(boton);
 				tr.appendChild(cel4);
-
+				
 				var cel5 = document.createElement("td");
 				var boton = document.createElement("button");
 				var clase = document.createAttribute("class");
@@ -87,12 +92,12 @@ function anadirOferta() {
 	var hipervinculo = document.getElementById("inputEnlace").value;
 	var descripcion = document.getElementById("inputDescripcion").value;
 
-	let ofertica = new Oferta(nombre, prioridad, precio, hipervinculo, descripcion);
+	let oferta = new Oferta(nombre, prioridad, precio, hipervinculo, descripcion);
 	
 	fetch('/anadir', {
 		headers: { "Content-Type": "application/json; charset=utf-8" },
 		method: 'POST',
-		body: JSON.stringify(ofertica)
+		body: JSON.stringify(oferta)
 		/*body: JSON.stringify({nombre: $('#inputNombre').val(), prioridad: $('#selectProducto').val(),precio: $('#inputPrecio').val(),
 		 hipervinculo: $('#inputEnlace').val(),descripcion: $('#inputDescripcion').val()})*/
 		//data: { "nombre": nombre, "precio": precio, "prioridad": prioridad, "hipervinculo": hipervinculo, "descripcion": descripcion }
@@ -106,28 +111,28 @@ function anadirOferta() {
 				
 			}
 		}).then(res => {
-			ofertica = res;
-			anadirFila(ofertica);
+			oferta = res;
+			anadirFila(oferta);
 			console.log(res);
 		});
 	
 }
 
 
-function anadirFila(ofertica) {
+function anadirFila(oferta) {
 	let resultados = document.getElementById("resultados");
 	let tr = document.createElement('tr');
 	var cel1 = document.createElement("th");
 	var cel2 = document.createElement("td");
 	var cel3 = document.createElement("td");
-	cel1.textContent = ofertica.id;
-	cel2.textContent = ofertica.nombre;
-	cel3.textContent = ofertica.precio;
+	cel1.textContent = oferta.id;
+	cel2.textContent = oferta.nombre;
+	cel3.textContent = oferta.precio;
 	tr.appendChild(cel1);
 	tr.appendChild(cel2);
 	tr.appendChild(cel3);
 
-	switch (ofertica.prioridad) {
+	switch (oferta.prioridad) {
 		case "Baja":
 			var claseprioridad = document.createAttribute("class");
 			claseprioridad.value = "table-active";
@@ -150,13 +155,13 @@ function anadirFila(ofertica) {
 	var boton = document.createElement("button");
 	var clase = document.createAttribute("class");
 	var valor = document.createAttribute("type");
-	var click = document.createAttribute("onclick");
-	click.value = "infoFila(this)";
+	var name = document.createAttribute("name");
+	name.value = "mostrar_info";
 	clase.value = "btn btn-info";
 	valor.value = "button";
 	boton.setAttributeNode(clase);
 	boton.setAttributeNode(valor);
-	boton.setAttributeNode(click);
+	boton.setAttributeNode(name);
 	boton.textContent = "info";
 	cel4.appendChild(boton);
 	tr.appendChild(cel4);
@@ -183,12 +188,42 @@ function anadirFila(ofertica) {
 	document.getElementById("inputDescripcion").value = '';
 }
 
+function filtrar(){
+
+   var tipo= document.querySelector('input[name="prioridad"]:checked').value;
+    editartabla();
+    fetch("/filtrar?prioridad=" + tipo, { headers: { "Content-Type": "application/json; charset=utf-8" } })
+		.then(res => res.json())
+		.then(response => {
+			for(let oferta of response){
+				anadirFila(oferta);
+			}
+		});   
+}
+
+function editartabla(){
+    var tabla= document.getElementById("resultados");
+    var nuevatabla=document.createElement("tbody");
+    var id=document.createAttribute("id");
+    id.value="resultados";
+    nuevatabla.setAttributeNode(id);
+    tabla.parentNode.replaceChild(nuevatabla,tabla);
+}
+
+
 
 document.addEventListener("DOMContentLoaded", function() {
 	$("#refrescar").click(obtenerOfertas);
 
 	$("#anadir").click(anadirOferta);
-	//Hola Caracola
+	//Hola Caracolas~
+	$("#filtrarPorPrioridad").click(filtrar);
+	
 
 
 });
+
+
+
+
+    

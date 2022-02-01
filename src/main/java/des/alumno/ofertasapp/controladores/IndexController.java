@@ -26,8 +26,8 @@ public class IndexController {
 	@GetMapping("/")
 	public String getIndex (Model modelo) {
 		
-		List<Oferta> o=ofertaservicio.listarTodas();
-		modelo.addAttribute("oferta",o);
+		//List<Oferta> o=ofertaservicio.listarTodas();
+		//modelo.addAttribute("oferta",o);
 		return "index";
 	}
 	
@@ -60,5 +60,5 @@ public class IndexController {
 	public List<Oferta> obtenerTodos() {
 	return ofertaservicio.listarTodas();
 	}
-	//asdas
+	
 }

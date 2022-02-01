@@ -15,12 +15,8 @@
   <script src="js/Oferta.js"></script>
   <script src="js/ajax.js"></script>
   <script type="text/javascript" src="js/bootstrap/bootstrap.min.js"></script>
-    <script src="js/javascript_profesor.js"></script>
-  <!--<script src="javascript_alumno.js"></script>-->
-
-  <script type="text/javascript">
-  window.onload=obtenerOfertas;
-  </script>
+  <script src="js/javascript_profesor.js"></script>
+  <!--  <script src="js/javascript_alumno.js"></script>-->
 </head>
 
 <body>
@@ -112,7 +108,7 @@
 		<!-- Cierre menu izquierdo-->
 		<!-- Apertura contenedor de la tabla-->
 		<section class="principal">
-			<table class="table table-hover">
+			<table class="table table-hover" id="tabla">
 				<thead>
 					<tr>
 						<th scope="col">Id</th>
@@ -162,10 +158,8 @@
 						</td>
 					</div>				    
 					    -->
-					    
 				</tbody>
 			</table>
-
 			<div class="accordion" id="accordionExample">
 				<div class="accordion-item">
 					<h2 class="accordion-header" id="headingOne">
@@ -204,7 +198,7 @@
         <fieldset class="form-group">
           <legend>Prioridad</legend>
           <div class="form-check">
-          <form th:action="@{/filtrar}" method="get">
+         <!-- <form th:action="@{/filtrar}" method="get">-->
             <label class="form-check-label">
               <input type="radio" class="form-check-input" name="prioridad" id="prioridadBaja" value="Baja" checked="">
               Priodad baja
@@ -223,9 +217,9 @@
             </label>
           </div>
         </fieldset>
-        <input type="submit" id="filtrarPorPrioridad" class="btn btn-lg btn-primary" value="Filtrar por Prioridad"></input>
+        <button type="submit" id="filtrarPorPrioridad" class="btn btn-lg btn-primary" value="Filtrar por Prioridad">Enviar</button>
       </aside>
-      </form>
+      <!--  </form>-->
   </div>
 <!-- Cierre menu izquierdo-->
 

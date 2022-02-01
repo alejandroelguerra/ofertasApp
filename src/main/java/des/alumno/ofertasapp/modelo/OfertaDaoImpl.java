@@ -3,6 +3,8 @@ package des.alumno.ofertasapp.modelo;
 import java.util.List;
 import java.util.Optional;
 
+import javax.persistence.Query;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -27,8 +29,9 @@ public class OfertaDaoImpl extends DaoGenericoImpl<Oferta> implements OfertaDao 
 	@Override
 	public List<Oferta> findAll() {
 		// TODO Auto-generated method stub
-		return jdbc.query("select * from oferta", (rs, rowNum) -> new Oferta(rs.getInt("id"), rs.getString("nombre"), 
-				rs.getFloat("precio"), rs.getDate("fecha").toLocalDate(), rs.getString("prioridad"),rs.getString("hiperenlace"),rs.getString("descripcion")));
+		Query query = this.em.createQuery("FROM Oferta");
+		return query.getResultList();
+	
 	}
 
 	/*@SuppressWarnings("deprecation")
@@ -48,16 +51,22 @@ public class OfertaDaoImpl extends DaoGenericoImpl<Oferta> implements OfertaDao 
 	@Override
 	public List<Oferta> findAllByNombreLike(String patronNombre) {
 		// TODO Auto-generated method stub
-		return jdbc.query("select * from oferta where nombre like ?", (rs, rowNum)-> new Oferta(rs.getInt("id"), 
+		/*return jdbc.query("select * from oferta where nombre like ?", (rs, rowNum)-> new Oferta(rs.getInt("id"), 
 				rs.getString("nombre"), rs.getFloat("precio"), rs.getDate("fecha").toLocalDate(),  rs.getString("prioridad"),rs.getString("hiperenlace"),rs.getString("descripcion")), 
-				"%"+patronNombre+"%");
+				"%"+patronNombre+"%");*/
+		
+		return null;
+
 	}
 
 	@Override
-	public List<Oferta> findAllByPrioridad(String prioridad) {
-		return jdbc.query("select * from oferta where prioridad like ?", (rs, rowNum)-> new Oferta(rs.getInt("id"), 
+	public List<Oferta> findAllByPrioridad(String patronPrioridad) {
+		/*return jdbc.query("select * from oferta where prioridad like ?", (rs, rowNum)-> new Oferta(rs.getInt("id"), 
 				rs.getString("nombre"), rs.getFloat("precio"), rs.getDate("fecha").toLocalDate(),  rs.getString("prioridad"),rs.getString("hiperenlace"),rs.getString("descripcion")), 
-				"%"+prioridad+"%");
+				"%"+prioridad+"%");*/
+		Query query=this.em.createQuery("FROM Oferta o where o.prioridad like :patron");
+		query.setParameter("patron","%"+ patronPrioridad+"%");
+		return query.getResultList();
 	}
 
 }
