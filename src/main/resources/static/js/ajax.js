@@ -188,16 +188,18 @@ function anadirFila(oferta) {
 	document.getElementById("inputDescripcion").value = '';
 }
 
-function filtrar(){
-
+function filtrar(event){
+	event.preventDefault()
    var tipo= document.querySelector('input[name="prioridad"]:checked').value;
     editartabla();
-    fetch("/filtrar?prioridad=" + tipo, { headers: { "Content-Type": "application/json; charset=utf-8" } })
+    
+    fetch('/filtrar?prioridad='+tipo, { headers: { "Content-Type": "application/json; charset=utf-8" } })
 		.then(res => res.json())
 		.then(response => {
 			for(let oferta of response){
 				anadirFila(oferta);
 			}
+		
 		});   
 }
 

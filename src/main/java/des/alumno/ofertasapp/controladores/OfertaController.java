@@ -20,11 +20,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import des.alumno.ofertasapp.entidades.Oferta;
 import des.alumno.ofertasapp.servicios.OfertaServicio;
 
-@Controller
+@RestController
 public class OfertaController {
 
 	@Autowired
@@ -79,13 +80,20 @@ public class OfertaController {
 		}
 
 	}*/
+	
+	
 	@GetMapping(value = "/filtrar")
-	public List<Oferta> buscarPorPatronPrioridad( @RequestParam String prioridad) {
+	public ArrayList<Oferta> buscarPorPatronPrioridad( @RequestParam String prioridad) {
 
 			return ofertaServicio.buscarPorPatronDePrioridad(prioridad);
 		
 			
 	}
+	
+		
+	
+	
+	/*
 	@GetMapping(value = "/oferta/{id}")
 	public String buscarProductoPorId(Model modelo, @PathVariable int id) {
 
@@ -98,5 +106,5 @@ public class OfertaController {
 			return "redirect:/";
 		}
 
-	}
+	}*/
 }
