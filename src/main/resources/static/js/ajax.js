@@ -38,21 +38,23 @@ function obtenerOfertas() {
 				}
 
 				var cel4 = document.createElement("td");
-				var boton = document.createElement("button");
+				var botoninf = document.createElement("button");
 				var clase = document.createAttribute("class");
 				var valor = document.createAttribute("type");
 				var name = document.createAttribute("name");
-				//boton.addEventListener("");
+				botoninf.addEventListener("click",function(){
+					$(modal).modal();
+					rellenarModal(oferta);
+				});
 				name.value = "mostrar_info";
 				clase.value = "btn btn-info";
 				valor.value = "button";
-				boton.setAttributeNode(clase);
-				boton.setAttributeNode(valor);
-				boton.setAttributeNode(name);
-				boton.textContent = "info";
-				//ADD event lisener
+				botoninf.setAttributeNode(clase);
+				botoninf.setAttributeNode(valor);
+				botoninf.setAttributeNode(name);
+				botoninf.textContent = "info";
 				
-				cel4.appendChild(boton);
+				cel4.appendChild(botoninf);
 				tr.appendChild(cel4);
 				
 				var cel5 = document.createElement("td");
@@ -152,18 +154,22 @@ function anadirFila(oferta) {
 	}
 
 	var cel4 = document.createElement("td");
-	var boton = document.createElement("button");
+	var botoninf = document.createElement("button");
 	var clase = document.createAttribute("class");
 	var valor = document.createAttribute("type");
 	var name = document.createAttribute("name");
+	botoninf.addEventListener("click",function(){
+					$(modal).modal();
+					rellenarModal(oferta);
+				});
 	name.value = "mostrar_info";
 	clase.value = "btn btn-info";
 	valor.value = "button";
-	boton.setAttributeNode(clase);
-	boton.setAttributeNode(valor);
-	boton.setAttributeNode(name);
-	boton.textContent = "info";
-	cel4.appendChild(boton);
+	botoninf.setAttributeNode(clase);
+	botoninf.setAttributeNode(valor);
+	botoninf.setAttributeNode(name);
+	botoninf.textContent = "info";
+	cel4.appendChild(botoninf);
 	tr.appendChild(cel4);
 
 	var cel5 = document.createElement("td");
@@ -212,7 +218,14 @@ function editartabla(){
     tabla.parentNode.replaceChild(nuevatabla,tabla);
 }
 
-
+function rellenarModal(oferta){
+	document.getElementById("nombreModal").value = oferta.nombre;
+	//document.getElementById("selectProducto").options.selectedIndex = oferta.prioridad;
+	document.getElementById("prioridadModal").value = oferta.prioridad;
+	document.getElementById("precioModal").value = oferta.precio;
+	document.getElementById("hipervinculoModal").value = oferta.hiperenlace;
+	document.getElementById("descripcionModal").value = oferta.descripcion;
+}
 
 document.addEventListener("DOMContentLoaded", function() {
 	$("#refrescar").click(obtenerOfertas);
@@ -221,6 +234,10 @@ document.addEventListener("DOMContentLoaded", function() {
 	//Hola Caracolas~
 	$("#filtrarPorPrioridad").click(filtrar);
 	
+	var cerrarmodal = document.getElementById("cerrar-modal");
+	cerrarmodal.addEventListener("click",function(){
+    $('#modal').modal('toggle');
+})
 
 
 });

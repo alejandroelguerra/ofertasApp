@@ -228,17 +228,51 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Modal title</h5>
+          <h5 class="modal-title">INFORMACION OFERTA</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
             <span aria-hidden="true"></span>
           </button>
         </div>
+        
+        
         <div class="modal-body">
-          <p>Modal body text goes here.</p>
+          <div class="form-group">
+				<label class="col-form-label" for="inputNombre">Producto</label> <input
+					type="text" class="form-control" placeholder="Nombre del producto"
+					id="nombreModal" name="nombreModal" disabled>
+			</div>
+
+			<div class="form-group">
+				<label for="selectProducto"> Prioridad</label> <input
+					type="text" class="form-control" placeholder="Prioridad"
+					id="prioridadModal" name="prioridadModal" disabled>
+				</select>
+			</div>
+			<div class="form-group">
+				<label class="col-form-label" for="inputGramos">Precio</label> <input
+					type="text" class="form-control" placeholder="Cuanto cuesta"
+					id="precioModal" name="precioModal" disabled>
+			</div>
+
+			<div class="form-group">
+				<label class="form-label" for="inputEnlace">Hipevínculo</label> <input
+					type="text" value="https://" class="form-control" id="hipervinculoModal" name="hipervinculoModal" disabled>
+			</div>
+			<div class="d-grid gap-2">
+
+				<div class="form-group">
+					<label for="inputDescripcion">Descripción</label>
+					<textarea class="form-control" id="descripcionModal" rows="3" name="descripcionModal" disabled></textarea>
+				</div>
+
+				<div class="d-grid gap-2">
+				</div>
+			</div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary">Save changes</button>
-          <button type="button" id="cerrar-modal" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Actualizar</button>
+          
+          <button type="button" id="cerrar-modal" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
         </div>
       </div>
     </div>
