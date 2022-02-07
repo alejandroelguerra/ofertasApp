@@ -236,6 +236,11 @@
         
         
         <div class="modal-body">
+			<div class="form-group">
+				<label class="col-form-label" for="inputNombre">Id</label>
+				<input type="text" class="form-control"id="idModal" name="idModal" disabled>
+				</div>
+			
           <div class="form-group">
 				<label class="col-form-label" for="inputNombre">Producto</label> <input
 					type="text" class="form-control" placeholder="Nombre del producto"
@@ -246,14 +251,19 @@
 				<label for="selectProducto"> Prioridad</label> <input
 					type="text" class="form-control" placeholder="Prioridad"
 					id="prioridadModal" name="prioridadModal" disabled>
-				</select>
+				<!--  <select
+					class="form-select" id="selectProducto" size="3" name="prioridad">
+					<option value="Baja">Baja</option>
+					<option value="Media">Media</option>
+					<option value="Alta">Alta</option>
+				</select>-->
 			</div>
 			<div class="form-group">
 				<label class="col-form-label" for="inputGramos">Precio</label> <input
 					type="text" class="form-control" placeholder="Cuanto cuesta"
 					id="precioModal" name="precioModal" disabled>
 			</div>
-
+			
 			<div class="form-group">
 				<label class="form-label" for="inputEnlace">Hipevínculo</label> <input
 					type="text" value="https://" class="form-control" id="hipervinculoModal" name="hipervinculoModal" disabled>
@@ -269,9 +279,9 @@
 				</div>
 			</div>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-primary">Actualizar</button>
-          
+        <div class="modal-footer" id="footermodal">
+          <button type="button" class="btn btn-primary" id="actualizar">Actualizar</button>
+          <button type="button" class="btn btn-primary" id="guardar" disabled>Guardar</button >
           <button type="button" id="cerrar-modal" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
         </div>
       </div>

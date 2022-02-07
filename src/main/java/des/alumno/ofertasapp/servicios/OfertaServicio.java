@@ -11,6 +11,8 @@ public interface OfertaServicio {
 
 	public Oferta guardar(Oferta oferta);
 	
+	public Oferta actualizar(Oferta oferta);
+	
 	public ArrayList<Oferta> listarTodas();
 	
 	public Oferta buscarPorId(int id);

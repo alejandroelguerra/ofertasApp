@@ -60,4 +60,10 @@ public class OfertaServiceImpl implements OfertaServicio{
 		return (ArrayList<Oferta>) dao.findAllByPrioridad(prioridad);
 	}
 
+	@Override
+	public Oferta actualizar(Oferta oferta) {
+		// TODO Auto-generated method stub
+		return dao.actualizar(oferta);
+	}
+
 }

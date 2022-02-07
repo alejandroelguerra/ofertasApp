@@ -17,7 +17,7 @@ public class Oferta implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column
-	private int id;
+	private Integer id;
 	@Column
 	private String nombre;
 	@Column
@@ -32,7 +32,7 @@ public class Oferta implements Serializable {
 	private String descripcion;
 	
 	
-	public Oferta(int id, String nombre, float precio, LocalDate fecha, String prioridad, String hiperenlace,
+	public Oferta(Integer id, String nombre, float precio, LocalDate fecha, String prioridad, String hiperenlace,
 			String descripcion) {
 		this.id = id;
 		this.nombre = nombre;
@@ -65,12 +65,12 @@ public class Oferta implements Serializable {
 
 	public Oferta() {
 	}
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

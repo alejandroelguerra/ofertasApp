@@ -195,7 +195,7 @@ function anadirFila(oferta) {
 }
 
 function filtrar(event){
-	event.preventDefault()
+	event.preventDefault();
    var tipo= document.querySelector('input[name="prioridad"]:checked').value;
     editartabla();
     
@@ -219,12 +219,76 @@ function editartabla(){
 }
 
 function rellenarModal(oferta){
+	document.getElementById("nombreModal").disabled=true;
+	$("#prioridadModal").replaceWith('<input type="text" class="form-control" placeholder="Prioridad"id="prioridadModal" name="prioridadModal" disabled>');
+	document.getElementById("precioModal").disabled=true;
+	document.getElementById("hipervinculoModal").disabled=true;
+	document.getElementById("descripcionModal").disabled=true;
+	document.getElementById("guardar").disabled=true;
 	document.getElementById("nombreModal").value = oferta.nombre;
-	//document.getElementById("selectProducto").options.selectedIndex = oferta.prioridad;
 	document.getElementById("prioridadModal").value = oferta.prioridad;
 	document.getElementById("precioModal").value = oferta.precio;
 	document.getElementById("hipervinculoModal").value = oferta.hiperenlace;
 	document.getElementById("descripcionModal").value = oferta.descripcion;
+	document.getElementById("idModal").value = oferta.id;
+}
+
+function actualizar(){
+	document.getElementById("nombreModal").disabled=false;
+	$("#prioridadModal")
+    .replaceWith('<select id="prioridadModal" class="form-select" id="selectProducto" name="prioridad" size="3">' +
+          '<option value="Baja">Baja</option>' +
+          '<option value="Media">Media</option>' +
+          '<option value="Alta">Alta</option>' +
+        '</select>');
+	document.getElementById("precioModal").disabled=false;
+	document.getElementById("hipervinculoModal").disabled=false;
+	document.getElementById("descripcionModal").disabled=false;
+	document.getElementById("guardar").disabled=false;
+}
+
+function actualizarOferta(event){
+	var id=document.getElementById("idModal").value;
+	var nom = document.getElementById("nombreModal").value;
+	var prioridad= document.getElementById("prioridadModal").value;
+	var precio = document.getElementById("precioModal").value;
+	var hiperenlace = document.getElementById("hipervinculoModal").value;
+	var descripcion = document.getElementById("descripcionModal").value;
+	
+	let oferta=new Oferta();
+	oferta.id=parseInt(id);
+	oferta.nombre=nom;
+	oferta.prioridad=prioridad;
+	oferta.precio=precio;
+	oferta.hiperenlace=hiperenlace;
+	oferta.descripcion=descripcion;
+	event.preventDefault();
+	fetch('/actualizar', {headers: { "Content-Type": "application/json; charset=utf-8" },
+		method: 'PUT',
+		body: JSON.stringify(oferta)})
+		.then(function(response){
+			if(response.ok){
+
+				return response.json();
+			}else{
+				throw "no existe la oferta";
+				
+			}
+		}).then(res => {
+			oferta = res;
+			actualizarTabla(oferta);
+			$('#modal').modal('toggle');
+			console.log(res);
+		});
+}
+
+function actualizarTabla(oferta){
+
+	var id =Array.from(document.querySelectorAll("tbody th")).find(id =>id.textContent==oferta.id);
+	var tr =id.parentNode;
+	var td=tr.querySelectorAll("td");
+	td[0].innerText=oferta.nombre;
+	td[1].innerText=oferta.precio;
 }
 
 document.addEventListener("DOMContentLoaded", function() {
@@ -233,6 +297,8 @@ document.addEventListener("DOMContentLoaded", function() {
 	$("#anadir").click(anadirOferta);
 	//Hola Caracolas~
 	$("#filtrarPorPrioridad").click(filtrar);
+	$("#actualizar").click(actualizar);
+	$("#guardar").click(actualizarOferta);
 	
 	var cerrarmodal = document.getElementById("cerrar-modal");
 	cerrarmodal.addEventListener("click",function(){
