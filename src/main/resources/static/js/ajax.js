@@ -109,7 +109,7 @@ function anadirOferta() {
 				return response.json();
 			
 			}else{
-				throw "de locos";
+				throw "No va";
 				
 			}
 		}).then(res => {
@@ -286,16 +286,30 @@ function actualizarTabla(oferta){
 
 	var id =Array.from(document.querySelectorAll("tbody th")).find(id =>id.textContent==oferta.id);
 	var tr =id.parentNode;
+	switch (oferta.prioridad) {
+		case "Baja":
+		tr.setAttribute('class','table-active');
+			break;
+		case "Media":
+			tr.setAttribute('class','table-warning');
+			break;
+
+		case "Alta":
+			tr.setAttribute('class','table-danger');
+			break;
+	}	
 	var td=tr.querySelectorAll("td");
 	td[0].innerText=oferta.nombre;
 	td[1].innerText=oferta.precio;
+	
+	
 }
 
 document.addEventListener("DOMContentLoaded", function() {
 	$("#refrescar").click(obtenerOfertas);
 
 	$("#anadir").click(anadirOferta);
-	//Hola Caracolas~
+
 	$("#filtrarPorPrioridad").click(filtrar);
 	$("#actualizar").click(actualizar);
 	$("#guardar").click(actualizarOferta);
